@@ -7,66 +7,112 @@
 
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background: #f0f4f8;
+  background: #f5f5f5;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 60px 16px;
+  padding: 80px 16px;
 }
 
 /* ── Card ── */
 .container {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 32px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+  padding: 40px;
   width: 100%;
-  max-width: 480px;
+  max-width: 540px;
 }
 
 h1 {
-  font-size: 1.8rem;
-  color: #2d3748;
-  margin-bottom: 24px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.02em;
+  margin-bottom: 36px;
   text-align: center;
 }
 
-/* ── Input row ── */
+/* ── Input row (task text + Add button) ── */
 .input-row {
   display: flex;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 #task-input {
   flex: 1;
   padding: 10px 14px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   font-size: 1rem;
-  color: #2d3748;
+  color: #111;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.15s;
+  background: #fff;
+}
+
+#task-input::placeholder {
+  color: #bbb;
 }
 
 #task-input:focus {
-  border-color: #667eea;
+  border-color: #111;
 }
 
 #add-btn {
-  padding: 10px 20px;
-  background: #667eea;
+  padding: 10px 22px;
+  background: #111;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.15s;
+  white-space: nowrap;
 }
 
 #add-btn:hover {
-  background: #5a67d8;
+  background: #333;
+}
+
+/* ── Due date and time row ── */
+.datetime-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+/* Each label + input pair */
+.datetime-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.datetime-field label {
+  font-size: 0.75rem;
+  color: #999;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.datetime-field input {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #111;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  background: #fff;
+}
+
+.datetime-field input:focus {
+  border-color: #111;
 }
 
 /* ── Task list ── */
@@ -74,64 +120,118 @@ h1 {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0;
 }
 
 .task-item {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  transition: opacity 0.2s;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+  background: none;
+}
+
+.task-item:first-child {
+  border-top: 1px solid #f0f0f0;
 }
 
 /* ── Checkbox ── */
 .task-item input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #667eea;
+  width: 17px;
+  height: 17px;
+  accent-color: #111;
   cursor: pointer;
   flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ── Wrapper that holds the task text and its metadata ── */
+.task-content {
+  flex: 1;
+  min-width: 0;
 }
 
 /* ── Task text ── */
 .task-text {
-  flex: 1;
+  display: block;
   font-size: 1rem;
-  color: #2d3748;
+  color: #111;
+  line-height: 1.5;
   word-break: break-word;
 }
 
 .task-item.completed .task-text {
   text-decoration: line-through;
-  color: #a0aec0;
+  color: #bbb;
+}
+
+/* ── Metadata: created at and due date/time ── */
+.task-meta {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-meta span {
+  font-size: 0.73rem;
+  color: #bbb;
+}
+
+/* Due date has passed → bold dark to signal urgency without color */
+.meta-due.overdue {
+  color: #111;
+  font-weight: 600;
+}
+
+/* Due date is today → medium gray, slightly emphasized */
+.meta-due.due-today {
+  color: #555;
+  font-weight: 600;
 }
 
 /* ── Delete button ── */
 .delete-btn {
   background: none;
   border: none;
-  color: #fc8181;
-  font-size: 1.2rem;
+  color: #ccc;
+  font-size: 1rem;
   cursor: pointer;
   line-height: 1;
   padding: 2px 4px;
   border-radius: 4px;
-  transition: color 0.2s;
+  transition: color 0.15s;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .delete-btn:hover {
-  color: #e53e3e;
+  color: #111;
 }
 
 /* ── Empty message ── */
 #empty-msg {
   text-align: center;
-  color: #a0aec0;
-  font-size: 0.95rem;
-  margin-top: 12px;
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-top: 32px;
+}
+
+/* ── Clear all button ── */
+#clear-btn {
+  display: block;
+  margin: 28px auto 0;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+  letter-spacing: 0.01em;
+}
+
+#clear-btn:hover {
+  color: #111;
 }

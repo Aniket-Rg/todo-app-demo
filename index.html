@@ -20,9 +20,23 @@
         <button id="add-btn">Add</button>
       </div>
 
+      <!-- Optional due date and time for the new task -->
+      <div class="datetime-row">
+        <div class="datetime-field">
+          <label for="due-date">Due date (optional)</label>
+          <input type="date" id="due-date" />
+        </div>
+        <div class="datetime-field">
+          <label for="due-time">Due time (optional)</label>
+          <input type="time" id="due-time" />
+        </div>
+      </div>
+
       <ul id="task-list"></ul>
 
       <p id="empty-msg">No tasks yet. Add one above!</p>
+
+      <button id="clear-btn">Clear all tasks</button>
     </div>
 
     <script src="script.js"></script>
